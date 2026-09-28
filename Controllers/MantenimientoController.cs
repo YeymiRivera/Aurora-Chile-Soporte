@@ -12,7 +12,7 @@ public class MantenimientoController : ControllerBase
     private UsuarioController _usuarioController;
 
     public MantenimientoController(SoporteContext context)
-    {
+    {   
         _context = context;
     }
 
@@ -34,17 +34,31 @@ public class MantenimientoController : ControllerBase
         {
             return NotFound(new { message = "Mantenimiento no encontrado." });
         }
-        return Ok(mantenimiento);
+        var activo = await (from a in _context.ActivosTecnologicos
+                      where a.Id_Activo == mantenimiento.id_Activo
+                      select a).FirstOrDefaultAsync();
+                      var ticket = await (from t in _context.Tickets
+                      where t.Id_Ticket == mantenimiento.id_Ticket
+                      select t).FirstOrDefaultAsync();
+        return Ok(new
+        {
+            Fecha=mantenimiento.Fecha,
+            Tipo=mantenimiento.Tipo,
+            Descripcion=mantenimiento.Descripcion,
+            Observaciones=mantenimiento.Observaciones,
+            Costo=mantenimiento.Costo,
+            Estado=mantenimiento.Estado,
+            Codigo_Responsable=mantenimiento.Codigo_Responsable,
+            Codigo_Inventario=activo.Codigo_Inventario,
+            Codigo_Ticket=ticket.Codigo
+
+        });
     }
 
     [HttpPost("CrearMantenimiento")]
     public async Task<ActionResult> CrearMantenimiento(string codigo_activo,string codigo, string tipo, string descripcion,  string observaciones, string codigoResponsable)
     {
-        var responsable= await _usuarioController.ObtenerUsuarioAsync(codigoResponsable);
-        if (responsable == null)
-        {
-            return NotFound(new { message = "Responsable no encontrado." });
-        }
+        
         var ticket = await (from t in _context.Tickets
                       where t.Codigo == codigo
                       select t).FirstOrDefaultAsync();
@@ -69,12 +83,13 @@ public class MantenimientoController : ControllerBase
         Mantenimiento nuevoMantenimiento = new Mantenimiento
         {
            
-            Fecha = DateTime.Now,
+            Fecha = DateTime.UtcNow,
             Tipo = tipo,
             Descripcion = descripcion,
             Observaciones = observaciones,
             Costo = 0, 
             Estado = "En proceso",
+            Codigo_Responsable = codigoResponsable,
             id_Activo = activo.Id_Activo,
             id_Ticket = ticket.Id_Ticket
         };

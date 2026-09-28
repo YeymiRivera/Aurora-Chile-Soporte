@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SoporteAurora.Datos;
@@ -11,9 +12,11 @@ using SoporteAurora.Datos;
 namespace Tarea_6_SI1.Migrations
 {
     [DbContext(typeof(SoporteContext))]
-    partial class SoporteContextModelSnapshot : ModelSnapshot
+    [Migration("20260928004237_m13")]
+    partial class m13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

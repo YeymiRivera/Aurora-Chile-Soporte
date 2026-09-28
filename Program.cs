@@ -13,7 +13,7 @@ builder.Services.AddDbContext<SoporteContext>(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Myapp", policyBuilder=>{
-    policyBuilder.WithOrigins("http://127.0.0.1:5500");
+    policyBuilder.WithOrigins();
     policyBuilder.AllowAnyHeader();
     policyBuilder.AllowAnyMethod();
     policyBuilder.AllowCredentials();
@@ -36,6 +36,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("Myapp");
+app.MapGet("/", () => Results.Redirect("/scalar/v1"));
 app.MapControllers();
 
 

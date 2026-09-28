@@ -40,10 +40,10 @@ public class TicketController : ControllerBase
     public async Task<ActionResult> CrearTicket(string CI_Usuario, string Tipo_Problema, string Prioridad, 
     string Impacto, string Urgencia, string Descripcion,string Codigo_Inventario)
     {
-        var usuario = await _userService.ObtenerUsuarioAsync(CI_Usuario);
+         var usuario = await _userService.ObtenerUsuarioAsync(CI_Usuario);
         if (usuario == null)
         {
-            return NotFound(new { message = "Usuario no encontrado." });
+            return NotFound(new { message = "Usuario encargado no encontrado." });
         }
         var activo = await (
             from a in _context.ActivosTecnologicos
@@ -78,6 +78,7 @@ public class TicketController : ControllerBase
             Descripcion = Descripcion,
             Estado = "Pendiente",
             Fecha = DateTime.UtcNow,
+            CI_Encargado = "No Asignado"
         };
       
         _context.Tickets.Add(ticket);

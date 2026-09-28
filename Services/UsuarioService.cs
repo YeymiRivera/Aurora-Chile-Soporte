@@ -14,7 +14,7 @@ namespace SoporteAurora.Services
         [HttpGet("ObtenerUsuario/{codigo}")]
         public async Task<IActionResult> ObtenerUsuarioAsync(string codigo)
         {
-            var usuario = await _httpClient.GetFromJsonAsync<UsuarioDTO>($"https://localhost:44391/api/Usuario/BuscarUsuario/{codigo}");
+            var usuario = await _httpClient.GetFromJsonAsync<UsuarioDTO>($"https://db4nx0n2-7080.brs.devtunnels.ms/scalar/v1#tag/empleado/GET/rrhh/empleados/{codigo}");
             if (usuario==null)
             {
                 return NotFound(new { message = "Usuario no encontrado." });

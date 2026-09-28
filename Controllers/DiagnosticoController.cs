@@ -36,7 +36,7 @@ public class DiagnosticoController : ControllerBase
     }
 
     [HttpPost("CrearDiagnostico")]
-    public async Task<ActionResult> CrearDiagnostico(string codigo,  string descripcion, string observaciones, int idResponsable,string causa, string resultado )
+    public async Task<ActionResult> CrearDiagnostico(string codigo,  string descripcion, string observaciones, string codigo_encargado,string causa, string resultado )
     {
           var ticket = await (from t in _context.Tickets
                       where t.Codigo == codigo
@@ -55,8 +55,8 @@ public class DiagnosticoController : ControllerBase
       
         Diagnostico nuevoDiagnostico = new Diagnostico  
         {
-            Id_Encargado = idResponsable,
-            Fecha = DateTime.Now,
+            Id_Encargado = 0,
+            Fecha = DateTime.UtcNow,
             Causa = causa,
             Resultado = resultado,
             Descripcion = descripcion,
@@ -69,7 +69,7 @@ public class DiagnosticoController : ControllerBase
     }
     
     [HttpPut("ActualizarDiagnostico/{codigo}")]
-    public async Task<ActionResult> ActualizarDiagnostico(string codigo,  string descripcion, string observaciones, int idResponsable,string causa, string resultado)
+    public async Task<ActionResult> ActualizarDiagnostico(string codigo,  string descripcion, string observaciones, string codigo_encargado,string causa, string resultado)
     {
         var ticket = await (from t in _context.Tickets
                       where t.Codigo == codigo

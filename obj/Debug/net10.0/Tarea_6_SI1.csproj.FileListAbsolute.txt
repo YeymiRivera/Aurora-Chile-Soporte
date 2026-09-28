@@ -244,3 +244,4 @@ E:\YRMC\Tarea_6_SI1\obj\Debug\net10.0\refint\Tarea_6_SI1.dll
 E:\YRMC\Tarea_6_SI1\obj\Debug\net10.0\Tarea_6_SI1.pdb
 E:\YRMC\Tarea_6_SI1\obj\Debug\net10.0\Tarea_6_SI1.genruntimeconfig.cache
 E:\YRMC\Tarea_6_SI1\obj\Debug\net10.0\ref\Tarea_6_SI1.dll
+D:\Universidad\Tarea_6_SI1\obj\Debug\net10.0\Tarea_6_SI1.sourcelink.json
